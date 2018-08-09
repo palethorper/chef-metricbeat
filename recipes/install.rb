@@ -25,30 +25,15 @@ version_string = node['platform_family'] == 'rhel' ? "#{node['metricbeat']['vers
 
 case node['platform_family']
 when 'debian'
-  # apt repository configuration
-  apt_repository 'beats' do
-    uri node['metricbeat']['apt']['uri']
-    components node['metricbeat']['apt']['components']
-    key node['metricbeat']['apt']['key']
-    action node['metricbeat']['apt']['action']
-    distribution ''
-  end
+  include_recipe 'elastic_beats_repo::apt' if node['metricbeat']['setup_repo']
 
   apt_preference 'metricbeat' do
     pin          "version #{node['metricbeat']['version']}"
     pin_priority '700'
   end
 
-when 'rhel'
-  # yum repository configuration
-  yum_repository 'beats' do
-    description node['metricbeat']['yum']['description']
-    baseurl node['metricbeat']['yum']['baseurl']
-    gpgcheck node['metricbeat']['yum']['gpgcheck']
-    gpgkey node['metricbeat']['yum']['gpgkey']
-    enabled node['metricbeat']['yum']['enabled']
-    action node['metricbeat']['yum']['action']
-  end
+when 'fedora', 'rhel', 'amazon'
+  include_recipe 'elastic_beats_repo::yum' if node['metricbeat']['setup_repo']
 
   yum_version_lock 'metricbeat' do
     version node['metricbeat']['version']
