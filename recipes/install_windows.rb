@@ -34,6 +34,9 @@ end
 
 extract_folder = "#{node['metricbeat']['windows']['base_dir']}/#{::File.basename(package_url, '.zip')}"
 
+log "package_file #{package_file}"
+log "Extract to: #{extract_folder}"
+
 windows_zipfile node['metricbeat']['windows']['base_dir'] do
   source package_file
   action :unzip
@@ -41,8 +44,8 @@ windows_zipfile node['metricbeat']['windows']['base_dir'] do
 end
 
 powershell_script 'install metricbeat as service' do
-  code <<-EOF
+  code <<-EOH
     cd "#{extract_folder}"
     &"./install-service-metricbeat.ps1"
-    EOF
+  EOH
 end
