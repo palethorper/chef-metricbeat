@@ -1,4 +1,4 @@
-default['metricbeat']['version'] = '5.1.1'
+default['metricbeat']['version'] = '6.5.0'
 default['metricbeat']['release'] = '1'
 default['metricbeat']['disable_service'] = false
 default['metricbeat']['package_url'] = 'auto'

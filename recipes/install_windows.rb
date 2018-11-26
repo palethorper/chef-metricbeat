@@ -37,9 +37,12 @@ extract_folder = "#{node['metricbeat']['windows']['base_dir']}/#{::File.basename
 log "package_file #{package_file}"
 log "Extract to: #{extract_folder}"
 
-windows_zipfile node['metricbeat']['windows']['base_dir'] do
-  source package_file
-  action :unzip
+powershell_script 'Unzip package file' do
+  guard_interpreter :powershell_script
+  code <<-EOH
+  [System.Reflection.Assembly]::LoadWithPartialName("System.IO.Compression.FileSystem") | Out-Null
+  [System.IO.Compression.ZipFile]::ExtractToDirectory('#{package_file}', '#{node['metricbeat']['windows']['base_dir']}')
+  EOH
   not_if { ::File.exist?(extract_folder + '/install-service-metricbeat.ps1') }
 end
 
