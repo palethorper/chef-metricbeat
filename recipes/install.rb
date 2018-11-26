@@ -21,7 +21,8 @@ node['metricbeat']['packages'].each do |p|
   package p
 end
 
-version_string = node['platform_family'] == 'rhel' ? "#{node['metricbeat']['version']}-#{node['metricbeat']['release']}" : node['metricbeat']['version']
+# version_string = node['platform_family'] == 'rhel' ? "#{node['metricbeat']['version']}-#{node['metricbeat']['release']}" : node['metricbeat']['version']
+version_string = node['metricbeat']['version']
 
 case node['platform_family']
 when 'debian'
@@ -40,6 +41,8 @@ when 'fedora', 'rhel', 'amazon'
     release node['metricbeat']['release']
     action :update
   end
+
+    
 end
 
 package 'metricbeat' do # ~FC009

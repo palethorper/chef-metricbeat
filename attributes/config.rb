@@ -11,7 +11,7 @@ default['metricbeat']['config'] = {
     'index.codec': 'best_compression'
   },
   'logging.level': 'info',
-  'logging.to_files': true
+  'logging.to_files': true,
   'logging.files': {
     'keepfiles': 7
   },

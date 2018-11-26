@@ -17,7 +17,4 @@
 # limitations under the License.
 #
 
-major_version = node['metricbeat']['version'].split('.')[0]
-
-node.default['metricbeat']['yum']['baseurl'] = "https://artifacts.elastic.co/packages/#{major_version}.x/yum"
-node.default['metricbeat']['apt']['uri'] = "https://artifacts.elastic.co/packages/#{major_version}.x/apt"
+node.default['elastic_beats_repo']['version'] = node['metricbeat']['version'].split('.')[0]
