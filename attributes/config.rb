@@ -4,7 +4,7 @@
 default['metricbeat']['config'] = {
   'metricbeat.config.modules': {
     'path': '${path.config}/modules.d/*.yml',
-    'reload.enabled': false
+    'reload.enabled': true
   },
   'setup.template.settings': {
     'index.number_of_shards': 1,

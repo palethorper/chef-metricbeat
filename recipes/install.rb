@@ -21,8 +21,7 @@ node['metricbeat']['packages'].each do |p|
   package p
 end
 
-# version_string = node['platform_family'] == 'rhel' ? "#{node['metricbeat']['version']}-#{node['metricbeat']['release']}" : node['metricbeat']['version']
-version_string = node['metricbeat']['version']
+version_string = node['platform_family'] == 'rhel' ? "#{node['metricbeat']['version']}-#{node['metricbeat']['release']}" : node['metricbeat']['version']
 
 case node['platform_family']
 when 'debian'
